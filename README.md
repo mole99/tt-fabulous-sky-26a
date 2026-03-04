@@ -3,6 +3,7 @@
 # Tiny FABulous FPGA - IHP26a
 
 - [Read the documentation for the project](docs/info.md)
+- [View the layout in your browser](https://gds-viewer.tinytapeout.com/?model=https://raw.githubusercontent.com/mole99/tt-fabulous-ihp-26a/refs/heads/main/gds/tt_um_fabulous_ihp_26a.gds&pdk=ihp-sg13g2)
 
 ## Requirements
 
@@ -22,7 +23,7 @@ For information on installing Nix with the FOSSi Foundation cache, please refer 
 
 ## Stitch the Fabric
 
-As a prerequisite make sure that the tiles for the tile library that you are using have been implemented in `ip/fabulous-tiles`.
+Before proceeding, ensure that the tiles for the tile library that you are using have been implemented in `ip/fabulous-tiles`.
 
 If so, you can proceed by enabling a Nix shell with LibreLane in this repository:
 
@@ -43,7 +44,7 @@ For example, to view `tiny_fabric_5x5` in OpenROAD, run: `make tiny_fabric_5x5-o
 
 Please see the README in `user_designs/` on how to implement a user design for the fabric.
 
-## Implement Tiny FABulous FPGA
+## Build Tiny FABulous FPGA
 
 Enable a Nix shell with LibreLane dev:
 
