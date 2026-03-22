@@ -18,7 +18,9 @@ runs/
 *.egg-info/
 __pycache__/
 
-
 # cocotb
 sim_build/
 *.gtkw
+
+# explicitly allow nextpnr model
+!user_designs/fabrics/tiny_fabric_5x5/macro/
