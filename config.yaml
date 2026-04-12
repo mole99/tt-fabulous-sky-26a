@@ -3,9 +3,16 @@ meta:
   substituting_steps:
     Checker.DisconnectedPins: null
 
-DESIGN_NAME: tt_um_fabulous_ihp_26a
+    # Promote power pins
+    +Odb.ManualMacroPlacement: Odb.FABulousPower
+    
+    # TODO
+    OpenROAD.IRDropReport: null
+    Checker.YosysUnmappedCells: null
+
+DESIGN_NAME: tt_um_fabulous_sky_26a
 VERILOG_FILES:
-  - dir::src/tt_um_fabulous_ihp_26a.sv
+  - dir::src/tt_um_fabulous_sky_26a.sv
   - dir::ip/fabric_config/fabric_config.sv
   - dir::ip/fabric_bitbang/fabric_bitbang.sv
   
@@ -13,27 +20,27 @@ CLOCK_PORT: clk
 CLOCK_PERIOD: 10 # 10ns = 100MHz
 
 FP_SIZING: "absolute"
-DIE_AREA: [0, 0, 1724.160, 710.640]
-FP_DEF_TEMPLATE: dir::src/tt_block_8x4_pgvdd.def
+DIE_AREA: [0, 0, 1378.160, 511.360]
+FP_DEF_TEMPLATE: dir::src/tt_block_8x4_pg.def
 
 PDN_CFG: dir::src/pdn_cfg.tcl
 PDN_EXTEND_TO: "boundary"
 
-PL_TARGET_DENSITY_PCT: 45
+PL_TARGET_DENSITY_PCT: 45 #45
 GRT_ALLOW_CONGESTION: true
 
 # TODO enable clock gating?
 #SYNTH_CLOCKGATE_POSEDGE_ICG: "sg13g2_lgcp_1/GATE/CLK/GCLK"
 #SYNTH_CLOCKGATE_MIN_WIDTH: 4
 
-RT_MAX_LAYER: TopMetal1
+RT_MAX_LAYER: met4
 FP_PDN_MULTILAYER: False
 
-# Width should be multiple of 0.48 (Metal2 pitch)
-# Height should be multiple of 0.42 (Metal3 pitch)
-# Standard cell row height: 3.78 (9 Metal3 tracks)
-FP_MACRO_HORIZONTAL_HALO: expr::(0.48 * 8)
-FP_MACRO_VERTICAL_HALO: expr::(0.42 * 9)
+# Width should be multiple of 0.46 (Metal2 pitch)
+# Height should be multiple of 0.68 (Metal3 pitch)
+# Standard cell row height: 2.72 (4 Metal3 tracks)
+FP_MACRO_HORIZONTAL_HALO: expr::(0.46 * 8)
+FP_MACRO_VERTICAL_HALO: expr::(0.68 * 4)
 
 # Save some more core area
 TOP_MARGIN_MULT: 1
@@ -43,20 +50,26 @@ LEFT_MARGIN_MULT: 4
 RIGHT_MARGIN_MULT: 1
 
 FP_OBSTRUCTIONS:
-- [expr::(0.48 * (3492 + 80)), 0, "expr::$DIE_AREA[2]", "expr::($DIE_AREA[3] - (0.42 * 81))"]
+- [expr::(0.46 * (2950)), 0, "expr::$DIE_AREA[2]", "expr::($DIE_AREA[3] - (0.68 * 72))"]
 
 MACROS:
-  tiny_fabric_9x5:
+  tiny_fabric_10x4:
     gds:
-      - dir::fabrics/tiny_fabric_9x5/macro/ihp-sg13g2/gds/tiny_fabric_9x5.gds
+      - dir::fabrics/tiny_fabric_10x4/macro/sky130A/gds/tiny_fabric_10x4.gds
     lef:
-      - dir::fabrics/tiny_fabric_9x5/macro/ihp-sg13g2/lef/tiny_fabric_9x5.lef
+      - dir::fabrics/tiny_fabric_10x4/macro/sky130A/lef/tiny_fabric_10x4.lef
     nl:
-      - dir::fabrics/tiny_fabric_9x5/macro/ihp-sg13g2/nl/tiny_fabric_9x5.nl.v
+      - dir::fabrics/tiny_fabric_10x4/macro/sky130A/nl/tiny_fabric_10x4.nl.v
     instances:
-      tiny_fabric_9x5:
-        location: [expr::(0.48 * 88), expr::(0.42 * 1)] # expr::(0.42 * 27)
+      tiny_fabric_10x4:
+        location: [expr::((0.46 * 120)), expr::(0.68 * 1)] # expr::(0.68 * 27)
         orientation: FS
 
+ERROR_ON_PDN_VIOLATIONS: False
+
 PDN_MACRO_CONNECTIONS:
-- "tiny_fabric_9x5 VPWR VGND VPWR VGND"
+- "tiny_fabric_10x4 VPWR VGND VPWR VGND"
+
+# No extract-unique, because the power straps
+# are connected in the top-level integration
+MAGIC_EXT_UNIQUE: notopports

@@ -1,9 +1,8 @@
 FabricBegin,,,,
-NW_term,N_term,N_term,N_term,N_term,N_term,N_term,N_term,NE_term
-W_IO4,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,E_IO4
-W_IO2,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,E_term
-W_IO4,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,E_IO4
-SW_term,S_IO4,S_term,S_IO4,S_term,S_term,S_term,S_term,SE_term
+NW_term,N_term,N_term,N_term,N_term,N_term,N_term,N_term,N_term,NE_term
+W_IO4,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,E_IO4
+W_IO4,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,LUT4x8_ha,E_IO4
+SW_term,S_IO2,S_IO4,S_IO4,S_term,S_term,S_term,S_term,S_term,SE_term
 FabricEnd,,,,
 ,,,,
 ParametersBegin,,,,
@@ -23,6 +22,7 @@ Tile,../../ip/fabulous-tiles/tiles/tiny/E_IO/E_IO.csv,,,
 Tile,../../ip/fabulous-tiles/tiles/tiny/E_IO4/E_IO4.csv,,,
 Tile,../../ip/fabulous-tiles/tiles/tiny/E_term/E_term.csv,,,
 Tile,../../ip/fabulous-tiles/tiles/tiny/S_IO/S_IO.csv,,,
+Tile,../../ip/fabulous-tiles/tiles/tiny/S_IO2/S_IO2.csv,,,
 Tile,../../ip/fabulous-tiles/tiles/tiny/S_IO4/S_IO4.csv,,,
 Tile,../../ip/fabulous-tiles/tiles/tiny/S_term/S_term.csv,,,
 Tile,../../ip/fabulous-tiles/tiles/tiny/W_IO/W_IO.csv,,,

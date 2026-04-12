@@ -14,48 +14,72 @@ from cocotb_tools.runner import get_runner
 from cocotb.types import LogicArray, Logic
 
 proj_path = Path(__file__).resolve().parent
-fabric = os.getenv("FABRIC", "tiny_fabric_9x5")
+fabric = os.getenv("FABRIC", "tiny_fabric_10x4")
 
 if __name__ == "__main__":
 
     sim = os.getenv("SIM", "icarus")
     pdk_root = os.getenv("PDK_ROOT", Path("~/.ciel").expanduser())
-    pdk = os.getenv("PDK", "ihp-sg13g2")
-    scl = os.getenv("SCL", "sg13g2_stdcell")
+    pdk = os.getenv("PDK", "sky130A")
+    scl = os.getenv("SCL", "sky130_fd_sc_hd")
     gl = os.getenv("GL", None)
     emulation = os.getenv("EMULATION", False)
     tile_library = os.getenv("TILE_LIBRARY", "tiny")
+    
+    if emulation and gl:
+        print("Error: EMULATION and GL can't be set at the same time.")
+        sys.exit(1)
     
     tiles_path = Path(proj_path / ".." / "ip" / "fabulous-tiles")
     primitives_path = Path(tiles_path) / "primitives"
     tile_library_path = Path(tiles_path) / "tiles" / tile_library
 
-    primitives_files = list(primitives_path.glob('**/fabulous/*.v'))
-    tile_files = list(tile_library_path.glob(f'**/macro/{pdk}/fabulous/*.v'))
-
-    #print(f"Primitive sources: {primitives_files}")
-    #print(f"Tile sources: {tile_files}")
+    if emulation and gl:
+        print("Error: EMULATION and GL can't be set at the same time.")
+        sys.exit(1)
     
     sources = []
     defines = {}
     test_filter = None
     
-    if emulation:
-        sources.append(proj_path / f'../user_designs/designs/{tile_library}/{emulation}/{emulation}.vh')
-        defines = {"EMULATION": True}
-        test_filter = "test_" + emulation
+    # RTL
+    if not gl:
+        if emulation:
+            sources.append(proj_path / f'../user_designs/designs/{tile_library}/{emulation}/{emulation}.vh')
+            defines = {"EMULATION": True}
+            test_filter = "test_" + emulation
     
-    sources.extend(primitives_files)
-    sources.extend(tile_files)
+        primitives_files = list(primitives_path.glob('**/fabulous/*.v'))
+        tile_files = list(tile_library_path.glob(f'**/macro/{pdk}/fabulous/*.v'))
+
+        #print(f"Primitive sources: {primitives_files}")
+        #print(f"Tile sources: {tile_files}")
+        
+        sources.extend(primitives_files)
+        sources.extend(tile_files)
+        
+        # Add models pack
+        sources.append(tiles_path / "models_pack.v")
+
+        # Add custom cells
+        sources.append(tiles_path / "custom.v")
+
+        # Add fabric netlist
+        sources.append(proj_path / f'../fabrics/{fabric}/macro/{pdk}/fabulous/{fabric}.v')
     
-    # Add models pack
-    sources.append(tiles_path / "models_pack.v")
-
-    # Add custom cells
-    sources.append(tiles_path / "custom.v")
-
-    # Add fabric netlist
-    sources.append(proj_path / f'../fabrics/{fabric}/macro/{pdk}/fabulous/{fabric}.v')
+    # Gate-level
+    else:
+        # SCL models
+        sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / f"{scl}.v")
+        sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / f"primitives.v")
+        
+        # Tile GL netlists
+        tile_files = list(tile_library_path.glob(f'**/macro/{pdk}/nl/*.nl.v'))
+        #print(f"Tile sources: {tile_files}")
+        sources.extend(tile_files)
+        
+        # Fabric GL netlist
+        sources.append(proj_path / f'../fabrics/{fabric}/macro/{pdk}/nl/{fabric}.nl.v')
 
     hdl_toplevel = fabric
 

@@ -1,4 +1,4 @@
-PDK ?= ihp-sg13g2
+PDK ?= sky130A
 
 # Get the fabric names
 FABRICS :=  $(patsubst fabrics/%,%,$(wildcard fabrics/*)) 
@@ -23,9 +23,9 @@ $(FABRICS_KLAYOUT):
 
 copy-fabric:
 	# Copy fabric database
-	mkdir -p user_designs/fabrics/tiny_fabric_9x5/macro/ihp-sg13g2/
-	cp -R fabrics/tiny_fabric_9x5/macro/ihp-sg13g2/fabulous/ user_designs/fabrics/tiny_fabric_9x5/macro/ihp-sg13g2/
-	cp fabrics/tiny_fabric_9x5/constraints.pcf user_designs/fabrics/tiny_fabric_9x5/constraints.pcf
+	mkdir -p user_designs/fabrics/tiny_fabric_10x4/macro/${PDK}/
+	cp -R fabrics/tiny_fabric_10x4/macro/${PDK}/fabulous/ user_designs/fabrics/tiny_fabric_10x4/macro/${PDK}/
+	cp fabrics/tiny_fabric_10x4/constraints.pcf user_designs/fabrics/tiny_fabric_10x4/constraints.pcf
 .PHONY: copy-fabric
 
 tt-fabulous:
@@ -43,6 +43,6 @@ tt-fabulous-klayout:
 # Copy the files for Tiny Tapeout
 copy-tt:
 	# Copy GDS and LEF
-	cp macro/gds/tt_um_fabulous_ihp_26a.gds gds/tt_um_fabulous_ihp_26a.gds
-	cp macro/lef/tt_um_fabulous_ihp_26a.lef lef/tt_um_fabulous_ihp_26a.lef
+	cp macro/gds/tt_um_fabulous_sky_26a.gds gds/tt_um_fabulous_sky_26a.gds
+	cp macro/lef/tt_um_fabulous_sky_26a.lef lef/tt_um_fabulous_sky_26a.lef
 .PHONY: copy-tt

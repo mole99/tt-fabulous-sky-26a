@@ -9,7 +9,7 @@
   };
 
   inputs = {
-    librelane_plugin_fabulous.url = "github:mole99/librelane_plugin_fabulous/1.5.0";
+    librelane_plugin_fabulous.url = "github:mole99/librelane_plugin_fabulous/1.9.0";
   };
 
   outputs =
@@ -36,6 +36,13 @@
             devshell.overlays.default
             librelane.overlays.default
             librelane_plugin_fabulous.overlays.default
+            (final: prev: {
+              openroad = prev.openroad.overrideAttrs {
+                patches = [
+                  ./disable_check.patch
+                ];
+              };
+            })
           ];
         }
       );

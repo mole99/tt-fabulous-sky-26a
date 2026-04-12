@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        pdk: [ihp-sg13g2]
+        pdk: [sky130A]
         tile_library: [tiny]
     name: Tiles (${{ matrix.tile_library }}/${{ matrix.pdk }})
     steps:
@@ -64,7 +64,7 @@ jobs:
     needs: [tiles]
     strategy:
       matrix:
-        pdk: [ihp-sg13g2]
+        pdk: [sky130A]
         fabrics: [tiny_fabric_9x5]
     name: Fabric (${{ matrix.fabrics }}/${{ matrix.pdk }})
     steps:
@@ -123,7 +123,7 @@ jobs:
           PDK=${{ matrix.pdk }} TILE_LIBRARY=${{ env.TILE_LIBRARY }} FABRIC=${{ matrix.fabrics }} nix develop --command bash -c "cd tb; python3 top_tb.py"
       - name: Set up the PDK
         run: |
-          nix develop --command ciel enable --pdk-family ihp-sg13g2 d335549443691aa7b6095c4186961c5806e0bcff
+          nix develop --command ciel enable --pdk-family sky130A 7b70722e33c03fcb5dabcf4d479fb0822d9251c9
       - name: Simulate the FPGA RTL/GL (Simulation)
         run: |
           GL=1 PDK=${{ matrix.pdk }} TILE_LIBRARY=${{ env.TILE_LIBRARY }} FABRIC=${{ matrix.fabrics }} nix develop --command bash -c "cd tb; python3 top_tb.py"

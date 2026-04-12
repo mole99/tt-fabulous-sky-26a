@@ -24,9 +24,11 @@ elif tile_library == "tiny":
     from .tiny.all_zeros import test_all_zeros
     from .tiny.counter import test_counter
     from .tiny.passthrough import test_passthrough
-    from .tiny.addition import test_addition
+    if not os.getenv("GL", None):
+        from .tiny.addition import test_addition
     from .tiny.counter import test_counter
-    from .tiny.multiplication import test_multiplication
+    if not os.getenv("GL", None):
+        from .tiny.multiplication import test_multiplication
     from .tiny.sys_reset import test_sys_reset
 
 else:

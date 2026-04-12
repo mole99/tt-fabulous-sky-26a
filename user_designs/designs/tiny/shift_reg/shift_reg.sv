@@ -4,7 +4,7 @@
 `default_nettype none
 
 module shift_reg #(
-    parameter BITS = 168
+    parameter BITS = 128
 )(
     input  wire       clk1,
     input  wire       rst,

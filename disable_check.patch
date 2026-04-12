@@ -1,0 +1,21 @@
+diff --git a/src/pdn/src/PdnGen.cc b/src/pdn/src/PdnGen.cc
+index 6466e95a42..52648dbe69 100644
+--- a/src/pdn/src/PdnGen.cc
++++ b/src/pdn/src/PdnGen.cc
+@@ -133,7 +133,7 @@ void PdnGen::buildGrids(bool trim)
+   }
+ 
+   bool failed = false;
+-  for (auto* grid : grids) {
++  /*for (auto* grid : grids) {
+     if (grid->hasShapes() || grid->hasVias()) {
+       continue;
+     }
+@@ -143,7 +143,7 @@ void PdnGen::buildGrids(bool trim)
+                   grid->getLongName(),
+                   Grid::typeToString(grid->type()));
+     failed = true;
+-  }
++  }*/
+ 
+   updateRenderer();

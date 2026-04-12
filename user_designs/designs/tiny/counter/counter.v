@@ -8,20 +8,13 @@ module counter (
     input  wire       rst,
     input  wire       ena,
     
-    output wire [21:0] d
+    output wire [14:0] d
 );
 
-    wire clk1_buf;
-
-    (* keep, BEL="X0Y4.A" *) GBUF clock_buf (
-      .IN   (clk1),
-      .OUT  (clk1_buf)
-    );
-
-    reg [21:0] ctr1;
+    reg [14:0] ctr1;
 
     // Reset before enable
-    always @(posedge clk1_buf) begin
+    always @(posedge clk1) begin
         if (rst) begin
             ctr1 <= '0;
         end else begin
