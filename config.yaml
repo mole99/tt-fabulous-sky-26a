@@ -24,9 +24,13 @@ DIE_AREA: [0, 0, 1378.160, 511.360]
 FP_DEF_TEMPLATE: dir::src/tt_block_8x4_pg.def
 
 PDN_CFG: dir::src/pdn_cfg.tcl
-PDN_EXTEND_TO: "boundary"
+#PDN_EXTEND_TO: "boundary"
 
-PL_TARGET_DENSITY_PCT: 45 #45
+PDN_VOFFSET: 8
+PDN_VPITCH: 25
+PDN_VWIDTH: 3.2
+
+PL_TARGET_DENSITY_PCT: 44 #45
 GRT_ALLOW_CONGESTION: true
 
 # TODO enable clock gating?

@@ -115,6 +115,7 @@ if { $::env(PDN_MULTILAYER) == 1 } {
         -offset $::env(PDN_VOFFSET) \
         -spacing $::env(PDN_VSPACING) \
         -starts_with POWER \
+        -number_of_straps 2 \
         {*}$arg_list
 }
 
