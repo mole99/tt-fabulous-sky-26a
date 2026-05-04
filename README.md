@@ -1,10 +1,9 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg)
 
-# Tiny FABulous FPGA - SKY26a/SKY26b
+# Tiny FABulous FPGA - SKY26a
 
 - [Read the documentation for the project](docs/info.md)
 - [View the layout in your browser (SKY26a)](https://gds-viewer.tinytapeout.com/?model=https://raw.githubusercontent.com/mole99/tt-fabulous-sky-26a/refs/heads/main/gds/tt_um_fabulous_sky_26a.gds&pdk=sky130A)
-- [View the layout in your browser (SKY26b)](https://gds-viewer.tinytapeout.com/?model=https://raw.githubusercontent.com/mole99/tt-fabulous-sky-26b/refs/heads/main/gds/tt_um_fabulous_sky_26b.gds&pdk=sky130A)
 
 ## Requirements
 
